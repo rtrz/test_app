@@ -1,11 +1,13 @@
 package com.example.myfirstapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity {
+	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class MainActivity extends Activity {
     	// Handle presses on action bar items.
     	switch (item.getItemId()) {
     		case R.id.action_droid:
-    			//openDroid();
+    			openDroid();
     			return true;
     		case R.id.action_settings:
     			//openSettings();
@@ -37,5 +39,12 @@ public class MainActivity extends Activity {
     		default:
     			return super.onOptionsItemSelected(item);
     	}
+    }
+    
+    public void openDroid() {
+    	Intent intent = new Intent(this, DroidActivity.class);
+    	String message = "This message is 'intended' for DROID.";
+    	intent.putExtra(EXTRA_MESSAGE, message);
+    	startActivity(intent);
     }
 }
