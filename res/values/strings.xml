@@ -8,5 +8,6 @@
     <string name="action_droid">DROID</string>
     <string name="title_activity_droid">DroidActivity</string>
     <string name="question">Who knows</string>
+    <string name="ts_history">Timestamp History</string>
 
 </resources>
