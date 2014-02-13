@@ -7,7 +7,9 @@
     <string name="hello_world_droid">Welcome to DROID.</string>
     <string name="action_droid">DROID</string>
     <string name="title_activity_droid">DroidActivity</string>
-    <string name="question">Who knows</string>
+    <string name="question">"Loading.</string>
     <string name="ts_history">Timestamp History</string>
+    <string name="action_mindcipher">MindCipher</string>
+    <string name="title_activity_mindcipher">MindcipherActivity</string>
 
 </resources>

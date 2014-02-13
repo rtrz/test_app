@@ -30,6 +30,11 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	// Handle presses on action bar items.
     	switch (item.getItemId()) {
+    		// Navigate to mindcipher page
+    		case R.id.action_mindcipher:
+    			openMindCipher();
+    			return true;
+    		// Navigate to random droid page
     		case R.id.action_droid:
     			openDroid();
     			return true;
@@ -45,6 +50,11 @@ public class MainActivity extends Activity {
     	Intent intent = new Intent(this, DroidActivity.class);
     	String message = "This message is 'intended' for DROID.";
     	intent.putExtra(EXTRA_MESSAGE, message);
+    	startActivity(intent);
+    }
+    
+    public void openMindCipher() {
+    	Intent intent = new Intent(this, MindcipherActivity.class);
     	startActivity(intent);
     }
 }
