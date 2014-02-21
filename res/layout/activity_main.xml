@@ -13,4 +13,9 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
+    <ListView
+        android:id="@+id/puzzleList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    
 </RelativeLayout>
