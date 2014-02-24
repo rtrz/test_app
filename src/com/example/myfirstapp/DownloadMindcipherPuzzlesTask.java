@@ -84,7 +84,7 @@ public class DownloadMindcipherPuzzlesTask extends AsyncTask<URL, Integer, Long>
 				Log.d("# puzzles", Integer.toString(num_puzzles));
 				
 				for (int i=0; i < num_puzzles; i++) {
-					JSONObject jObject = jArray.getJSONObject(i);
+					JSONCleanObject jObject = new JSONCleanObject(jArray.getJSONObject(i));
 				
 					String puzzle_name = jObject.getString("name");
 					//String puzzle_body = jObject.getString("content");
