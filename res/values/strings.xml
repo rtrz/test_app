@@ -11,5 +11,9 @@
     <string name="ts_history">Timestamp History</string>
     <string name="action_mindcipher">MindCipher</string>
     <string name="title_activity_mindcipher">MindcipherActivity</string>
+    <string name="title_activity_puzzle">PuzzleActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
 </resources>

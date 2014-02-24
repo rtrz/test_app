@@ -75,9 +75,11 @@ public class DownloadMindcipherPuzzlesTask extends AsyncTask<URL, Integer, Long>
 			//this._MindcipherActivity.showPuzzle(ERROR);
 		} else {
 			try {
+				// Convert results to a json array
 				JSONArray jArray = new JSONArray(this.result);
 				int num_puzzles = jArray.length();
 				List<Map<String, String>> _puzzleList = new ArrayList<Map<String,String>>();
+				List<Puzzle> _puzzleDetailedList = new ArrayList<Puzzle>();
 				
 				Log.d("# puzzles", Integer.toString(num_puzzles));
 				
@@ -89,12 +91,20 @@ public class DownloadMindcipherPuzzlesTask extends AsyncTask<URL, Integer, Long>
 					//String puzzle_answer = jObject.getString("answer");
 					
 					_puzzleList.add(createPuzzle("planet", puzzle_name));
+					Puzzle _puzzle = new Puzzle(jObject.getInt("id"),
+												i,
+												jObject.getString("name"),
+												jObject.getString("content"),
+												jObject.getString("answer"),
+												jObject.getString("solution"));
+					_puzzleDetailedList.add(_puzzle);
 					
 					Log.d("name", puzzle_name);
 				
 				}
 				
 				this._MainActivity.puzzleList = _puzzleList;
+				this._MainActivity.puzzleDetailedList = _puzzleDetailedList;
 				this._MainActivity.updateListView();
 				
 				//this._MindcipherActivity.showPuzzle(puzzle_name +
@@ -111,4 +121,6 @@ public class DownloadMindcipherPuzzlesTask extends AsyncTask<URL, Integer, Long>
      
         return puzzle;
     }
+	
+	
 }

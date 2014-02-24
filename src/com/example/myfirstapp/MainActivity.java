@@ -11,12 +11,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	// Constants for intent messages
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+	public final static String PUZZLE = "com.example.myfirstapp.PUZZLE";
+	public final static String PUZZLE_ANSWER = "com.example.myfirstapp.PUZZLE_ANSWER";
+	public final static String PUZZLE_CONTENT = "com.example.myfirstapp.PUZZLE_CONTENT";
+	public final static String PUZZLE_NAME = "com.example.myfirstapp.PUZZLE_NAME";
+	public final static String PUZZLE_SOLUTION = "com.example.myfirstapp.PUZZLE_SOLUTION";
+	
 	public List<Map<String, String>> puzzleList = new ArrayList<Map<String,String>>();
+	public List<Puzzle> puzzleDetailedList = new ArrayList<Puzzle>();
 	private SimpleAdapter simpleAdpt;
 	
     @Override
@@ -27,7 +39,7 @@ public class MainActivity extends Activity {
         // Show a single ListView element "Loading puzzles..."
         showLoadingPuzzles();
         
-        // Async download of MC puzzle list, which also sets the ListView puzzles.
+        // Asynchronous download of MC puzzle list, which also sets the ListView puzzles.
         DownloadMindcipherPuzzlesTask dmt = new DownloadMindcipherPuzzlesTask(this);
 		try {
 			URL url = new URL("http://mindcipher.com/puzzles.json");
@@ -45,6 +57,19 @@ public class MainActivity extends Activity {
         
         ListView lv = (ListView) findViewById(R.id.puzzleList);
         lv.setAdapter(simpleAdpt);
+        
+        lv.setOnItemClickListener(new OnItemClickListener() {
+        	  @Override
+        	  public void onItemClick(AdapterView<?> parent, View view,
+        	    int position, long id) {
+        		  Puzzle _p = puzzleDetailedList.get((int)id);
+        		  String message = _p.name;
+        		  Toast.makeText(getApplicationContext(),
+        				  message, Toast.LENGTH_SHORT)
+        				  .show();
+        		  openPuzzle(_p);
+        	  }
+    	}); 
     }
 
     // Place menu items into the action bar. Callback method to inflate the
@@ -86,6 +111,15 @@ public class MainActivity extends Activity {
     
     public void openMindCipher() {
     	Intent intent = new Intent(this, MindcipherActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void openPuzzle(Puzzle _p) {
+    	Intent intent = new Intent(this, PuzzleActivity.class);
+    	
+    	// populate intent with puzzle data
+    	intent.putExtra(PUZZLE, _p);
+    	
     	startActivity(intent);
     }
     
