@@ -39,7 +39,7 @@ public class PuzzleActivity extends FragmentActivity implements
 
 		// Set up the dropdown list navigation in the action bar.
 		actionBar.setListNavigationCallbacks(
-		// Specify a SpinnerAdapter to populate the dropdown list.
+				// Specify a SpinnerAdapter to populate the dropdown list.
 				new ArrayAdapter<String>(actionBar.getThemedContext(),
 						android.R.layout.simple_list_item_1,
 						android.R.id.text1, new String[] {
@@ -52,15 +52,14 @@ public class PuzzleActivity extends FragmentActivity implements
 		// Get puzzle object from intent
 		_puzzle = (Puzzle) intent.getSerializableExtra(MainActivity.PUZZLE);
 		
-		Log.d("name", "+" + _puzzle.name);
-		TextView tvPuzzleName = (TextView) findViewById(R.id.puzzle_name);
+		/*TextView tvPuzzleName = (TextView) findViewById(R.id.puzzle_name);
 		TextView tvPuzzleContent = (TextView) findViewById(R.id.puzzle_content);
 		TextView tvPuzzleAnswer = (TextView) findViewById(R.id.puzzle_answer);
 		TextView tvPuzzleSolution = (TextView) findViewById(R.id.puzzle_solution);
 		tvPuzzleName.setText(_puzzle.name);
 		tvPuzzleContent.setText(_puzzle.content);
 		tvPuzzleAnswer.setText(_puzzle.answer);
-		tvPuzzleSolution.setText(_puzzle.solution);
+		tvPuzzleSolution.setText(_puzzle.solution);*/
 		
 		
 	}
@@ -112,6 +111,20 @@ public class PuzzleActivity extends FragmentActivity implements
 		Fragment fragment = new DummySectionFragment();
 		Bundle args = new Bundle();
 		args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+		args.putString(DummySectionFragment.PUZZLE_NAME, this._puzzle.name);
+		switch ((int)id) {
+			case 0: // Puzzle
+				args.putString(DummySectionFragment.PUZZLE_CONTENT, _puzzle.content);
+				break;
+			case 1: // Answer
+				args.putString(DummySectionFragment.PUZZLE_CONTENT, _puzzle.answer);
+				break;
+			case 2: // Solution
+				args.putString(DummySectionFragment.PUZZLE_CONTENT, _puzzle.solution);
+				break;
+			default:
+				args.putString(DummySectionFragment.PUZZLE_CONTENT, "ERROR - no puzzle data");
+		}
 		fragment.setArguments(args);
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, fragment).commit();
@@ -128,8 +141,13 @@ public class PuzzleActivity extends FragmentActivity implements
 		 * fragment.
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		public static final String PUZZLE_NAME = "pName";
+		public static final String PUZZLE_CONTENT = "pContent";
 
-		public DummySectionFragment() {
+		Puzzle _p;
+		public DummySectionFragment() {}
+		public void setPuzzle(Puzzle p) {
+			_p = p;
 		}
 
 		@Override
@@ -137,10 +155,12 @@ public class PuzzleActivity extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_puzzle_dummy,
 					container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
+			TextView puzzle_name = (TextView) rootView
+					.findViewById(R.id.puzzle_name);
+			TextView puzzle_content = (TextView) rootView
+					.findViewById(R.id.puzzle_content);
+			puzzle_name.setText(getArguments().getString(PUZZLE_NAME));
+			puzzle_content.setText(getArguments().getString(PUZZLE_CONTENT));
 			return rootView;
 		}
 	}
