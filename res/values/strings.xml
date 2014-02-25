@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">My First App</string>
+    <string name="app_name">Mindcipher</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="random_puzzle">Random puzzle:</string>
     <string name="hello_world_droid">Welcome to DROID.</string>
     <string name="action_droid">DROID</string>
     <string name="title_activity_droid">DroidActivity</string>
